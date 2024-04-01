@@ -1,0 +1,38 @@
+.rooms {
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.room, .newRoom {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #777777;
+    transition: all ease-in-out 200ms;
+}
+
+.room {
+    background-color: #5bab63;
+}
+
+.newRoom {
+    background-color: #439afd;
+}
+
+.room:hover, .newRoom:hover {
+    transform: scale(101%);
+}
+
+.room:active, .newRoom:active {
+    opacity: 0.6;
+}

@@ -1,0 +1,124 @@
+.messenger {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr 10fr 1fr;
+    height: 90%;
+    width: 60%;
+    margin: 0 auto;
+    border: 4px solid #bacaff;
+    border-radius: 30px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 4px solid #bacaff;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.backButton {
+    margin-left: 5px;
+    width: 40px;
+    height: 100%;
+    background-image: url("./back.png");
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position: 0 10px;
+    cursor: pointer;
+    border: none;
+    border-right: 4px solid #bacaff;
+    background-color: inherit;
+}
+
+.roomTitle {
+    line-height: 20px;
+    margin-right: 20px;
+    font-size: 24px;
+}
+
+.dialogContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: auto;
+}
+
+.dialog {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 10px;
+
+}
+
+.replyArea {
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom: calc(100% / 12);
+    border-top: 4px solid #bacaff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.replyAuthor {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: bold;
+    margin: 0 0 0 10px;
+}
+
+.replyText {
+    font-size: 16px;
+    line-height: 18px;
+    margin: 0 0 0 10px;
+}
+
+.removeReply {
+    margin-left: 5px;
+    width: 40px;
+    height: 40px;
+    background-image: url("./cross.png");
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position: 0 5px;
+    cursor: pointer;
+    border: none;
+    border-right: 4px solid #bacaff;
+    background-color: inherit;
+}
+
+.messageArea {
+    display: grid;
+    grid-template-columns: 15fr 1fr;
+    flex-direction: row;
+    border-top: 4px solid #bacaff;
+    align-items: center;
+}
+
+.messageArea input {
+    font-size: 20px;
+    margin-left: 20px;
+    height: 100%;
+    border: none;
+    background-color: inherit;
+    outline: none;
+}
+
+.messageArea button{
+    margin-right: 5px;
+    width: 40px;
+    height: 100%;
+    background-image: url("./send.png");
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position: 4px 6px;
+    cursor: pointer;
+    border: none;
+    border-left: 4px solid #bacaff;
+    background-color: inherit;
+}
+
+

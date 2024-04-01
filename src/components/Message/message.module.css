@@ -1,0 +1,59 @@
+.message {
+    position: relative;
+    align-self: flex-start;
+    background-color: #b9daff;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    max-width: 70%;
+    min-width: 15%;
+}
+
+.myMessage {
+    align-self: flex-end;
+}
+
+.sender {
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: bold;
+    margin: 0 0 3px;
+}
+
+.reply {
+    font-size: 16px;
+    line-height: 16px;
+    background-color: #95c4ff;
+    margin: 0 0 5px;
+    padding: 4px 0 4px 5px;
+    border-left: 3px solid #4e93fc;
+}
+
+.text {
+    font-size: 16px;
+    line-height: 18px;
+    margin: 0 0 20px;
+    word-break: break-all;
+}
+
+.replyButton {
+    background-color: inherit;
+    border: none;
+    font-size: 10px;
+    position: absolute;
+    bottom: 5%;
+    left: 5px;
+    color: #2f2f2f;
+}
+
+.replyButton:hover {
+    opacity: 0.8;
+}
+
+.time {
+    font-size: 10px;
+    position: absolute;
+    bottom: 5%;
+    right: 5px;
+    line-height: 14px;
+}
