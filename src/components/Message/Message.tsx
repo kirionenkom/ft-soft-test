@@ -36,7 +36,7 @@ export default function Message({
       >
         Ответить
       </button>
-      <time className={styles.time}>{getTime(message.datetime as string)}</time>
+      <time className={styles.time}>{getTime(message.datetime)}</time>
     </div>
   );
 }

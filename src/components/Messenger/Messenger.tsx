@@ -61,6 +61,7 @@ export default function Messenger() {
         <div className={styles.dialog}>
           {room.messages.map(message => (
             <Message
+              key={message.id}
               message={message}
               isMyMessage={user === message.sender}
               onReply={setReplyMessage}

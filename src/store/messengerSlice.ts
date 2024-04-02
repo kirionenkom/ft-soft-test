@@ -54,6 +54,7 @@ export const messengerSlice = createSlice({
       }>,
     ) => {
       state.currentRoom = addMessageToRoom(action.payload.roomId, {
+        id: nanoid(10),
         sender: state.currentUser,
         text: action.payload.messageText,
         datetime: String(new Date()),

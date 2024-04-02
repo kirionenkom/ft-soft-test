@@ -22,7 +22,7 @@ export default function RoomsList() {
   ) : (
     <div className={styles.rooms}>
       {rooms.map(room => (
-        <Link className={styles.room} to={room.id}>
+        <Link className={styles.room} to={room.id} key={room.id}>
           {room.name}
         </Link>
       ))}
