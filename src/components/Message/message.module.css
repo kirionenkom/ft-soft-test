@@ -6,7 +6,7 @@
     border-radius: 10px;
     margin-bottom: 5px;
     max-width: 70%;
-    min-width: 15%;
+    min-width: 100px;
 }
 
 .myMessage {
