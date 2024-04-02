@@ -6,6 +6,7 @@ import { useEventListener, useInterval } from 'usehooks-ts';
 import { getRoom, sendMessage } from '../../store/messengerSlice';
 import { useState } from 'react';
 import { IMessage } from '../../interfaces/IMessage';
+import EmojiContainer from '../EmojiPicker/EmojiPicker';
 
 const MESSENGER_UPDATE_INTERVAL = 500;
 
@@ -17,6 +18,7 @@ export default function Messenger() {
   const room = useAppSelector(state => state.messenger.currentRoom);
   const [message, setMessage] = useState('');
   const [replyMessage, setReplyMessage] = useState<IMessage['reply']>(null);
+  const [isEmojiWindowOpen, setIsEmojiWindowOpen] = useState(false);
 
   useInterval(() => {
     dispatch(getRoom(id));
@@ -32,6 +34,7 @@ export default function Messenger() {
     );
     setMessage('');
     setReplyMessage(null);
+    setIsEmojiWindowOpen(false)
   };
 
   useEventListener('keyup', event => {
@@ -79,6 +82,11 @@ export default function Messenger() {
         </div>
       )}
       <div className={styles.messageArea}>
+        <button
+          type={'button'}
+          className={styles.emojiButton}
+          onClick={() => setIsEmojiWindowOpen(prevState => !prevState)}
+        />
         <input
           placeholder={'Введите сообщение'}
           value={message}
@@ -86,10 +94,15 @@ export default function Messenger() {
         />
         <button
           type={'button'}
+          className={styles.sendButton}
           onClick={handleSendMessage}
           disabled={message === ''}
         ></button>
       </div>
+      <EmojiContainer
+        isOpen={isEmojiWindowOpen}
+        onPick={(emoji: string) => setMessage(prevState => prevState + emoji)}
+      />
     </div>
   );
 }
