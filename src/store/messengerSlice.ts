@@ -9,6 +9,7 @@ import {
   saveUserToStorage,
 } from '../localStorage/localStorage';
 import { IMessage } from '../interfaces/IMessage';
+import { getSession, setSession } from '../localStorage/sessionStorage'
 
 interface messengerSliceProps {
   rooms: IRoom[];
@@ -18,7 +19,7 @@ interface messengerSliceProps {
 
 const initialState: messengerSliceProps = {
   rooms: getRoomsFromStorage(),
-  currentUser: null,
+  currentUser: getSession(),
   currentRoom: null,
 };
 
@@ -28,6 +29,7 @@ export const messengerSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<IUser>) => {
       saveUserToStorage(action.payload);
+      setSession(action.payload)
       state.currentUser = action.payload;
     },
     getRooms: state => {
