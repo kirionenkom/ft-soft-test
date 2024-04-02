@@ -6,7 +6,7 @@ import { useEventListener, useInterval } from 'usehooks-ts';
 import { getRoom, sendMessage } from '../../store/messengerSlice';
 import { useState } from 'react';
 import { IMessage } from '../../interfaces/IMessage';
-import EmojiContainer from '../EmojiPicker/EmojiPicker';
+import EmojiContainer from '../EmojiContainer/EmojiPicker';
 
 const MESSENGER_UPDATE_INTERVAL = 500;
 
