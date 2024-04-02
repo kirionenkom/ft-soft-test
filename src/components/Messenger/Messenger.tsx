@@ -23,6 +23,10 @@ export default function Messenger() {
   }, MESSENGER_UPDATE_INTERVAL);
 
   const handleSendMessage = () => {
+    if (message === '') {
+      return;
+    }
+
     dispatch(
       sendMessage({ roomId: id, messageText: message, reply: replyMessage }),
     );
@@ -80,7 +84,11 @@ export default function Messenger() {
           value={message}
           onChange={event => setMessage(event.target.value)}
         />
-        <button type={'button'} onClick={handleSendMessage}></button>
+        <button
+          type={'button'}
+          onClick={handleSendMessage}
+          disabled={message === ''}
+        ></button>
       </div>
     </div>
   );

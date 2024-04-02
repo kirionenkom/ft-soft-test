@@ -121,4 +121,8 @@
     background-color: inherit;
 }
 
+.messageArea button:disabled{
+    opacity: 0.6;
+}
+
 
