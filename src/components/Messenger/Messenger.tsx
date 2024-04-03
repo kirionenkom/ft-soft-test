@@ -49,7 +49,7 @@ export default function Messenger() {
         id: room.id,
         name: room.name,
         messages: [...room.messages, message],
-      });
+      }, room.id);
     } catch (e) {
       console.log(e);
     }

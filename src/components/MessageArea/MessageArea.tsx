@@ -16,7 +16,6 @@ function getBase64(image: File, setImage: (image: IMessage['image']) => void) {
   const reader = new FileReader();
   reader.readAsDataURL(image);
   reader.onload = function () {
-    console.log(reader.result);
     setImage(reader.result);
   };
   reader.onerror = function (error) {
