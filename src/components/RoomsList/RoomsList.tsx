@@ -1,21 +1,25 @@
 import styles from './rooms.module.css';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useInterval } from 'usehooks-ts';
-import { getRooms } from '../../store/messengerSlice';
 import { useState } from 'react';
 import NewRoom from '../NewRoom/NewRoom';
 import { Link } from 'react-router-dom';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { db } from '../../localStorage/db';
 
 const ROOMS_LIST_UPDATE_INTERVAL = 2000;
 
 export default function RoomsList() {
+  const [time, setTime] = useState(0);
   const [isNewRoomModalOpen, setIsNewRoomModalOpen] = useState(false);
-  const rooms = useAppSelector(state => state.messenger.rooms);
-  const dispatch = useAppDispatch();
+  const rooms = useLiveQuery(() => db.rooms.toArray(), [time]);
 
   useInterval(() => {
-    dispatch(getRooms());
+    setTime(prevState => prevState++);
   }, ROOMS_LIST_UPDATE_INTERVAL);
+
+  if (!rooms) {
+    return null;
+  }
 
   return isNewRoomModalOpen ? (
     <NewRoom onClose={() => setIsNewRoomModalOpen(false)} />

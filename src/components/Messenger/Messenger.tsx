@@ -1,49 +1,64 @@
 import styles from './messenger.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Message from '../Message/Message';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { useEventListener, useInterval } from 'usehooks-ts';
-import { getRoom, sendMessage } from '../../store/messengerSlice';
+import { useInterval } from 'usehooks-ts';
 import { useState } from 'react';
 import { IMessage } from '../../interfaces/IMessage';
-import EmojiContainer from '../EmojiContainer/EmojiContainer'
+import { getSession } from '../../localStorage/sessionStorage';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { db } from '../../localStorage/db';
+import { nanoid } from '@reduxjs/toolkit';
+import ReplyArea from '../ReplyArea/ReplyArea';
+import ImageArea from '../ImageArea/ImageArea';
+import MessageArea from '../MessageArea/MessageArea';
 
 const MESSENGER_UPDATE_INTERVAL = 500;
 
 export default function Messenger() {
+  const [time, setTime] = useState(0);
   const { id } = useParams();
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector(state => state.messenger.currentUser);
-  const room = useAppSelector(state => state.messenger.currentRoom);
-  const [message, setMessage] = useState('');
-  const [replyMessage, setReplyMessage] = useState<IMessage['reply']>(null);
-  const [isEmojiWindowOpen, setIsEmojiWindowOpen] = useState(false);
+
+  const user = getSession();
+  const room = useLiveQuery(async () => {
+    return db.rooms.where({ id: id }).first();
+  }, [time]);
+
+  const [image, setImage] = useState<IMessage['image']>();
+  const [replyMessage, setReplyMessage] = useState<IMessage['reply']>();
 
   useInterval(() => {
-    dispatch(getRoom(id));
+    setTime(prevState => prevState + 1);
   }, MESSENGER_UPDATE_INTERVAL);
 
-  const handleSendMessage = () => {
-    if (message === '') {
+  const handleSendMessage = async (text: IMessage['text']) => {
+    if (!room || !user) {
       return;
     }
 
-    dispatch(
-      sendMessage({ roomId: id, messageText: message, reply: replyMessage }),
-    );
-    setMessage('');
+    try {
+      const message: IMessage = {
+        id: nanoid(10),
+        sender: user,
+        text: text,
+        datetime: String(new Date()),
+        reply: replyMessage ?? null,
+        image: image ?? null,
+      };
+      await db.rooms.put({
+        id: room.id,
+        name: room.name,
+        messages: [...room.messages, message],
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
     setReplyMessage(null);
-    setIsEmojiWindowOpen(false)
+    setImage(null);
   };
 
-  useEventListener('keyup', event => {
-    if (event.key === 'Enter') {
-      handleSendMessage();
-    }
-  });
-
-  if (!room || room.id !== id) {
+  if (!room || room.id !== id || !user) {
     return null;
   }
 
@@ -63,47 +78,21 @@ export default function Messenger() {
             <Message
               key={message.id}
               message={message}
-              isMyMessage={user === message.sender}
+              isMyMessage={user.id === message.sender.id}
               onReply={setReplyMessage}
             />
           ))}
         </div>
       </div>
       {replyMessage && (
-        <div className={styles.replyArea}>
-          <div>
-            <p className={styles.replyAuthor}>{replyMessage.sender}</p>
-            <p className={styles.replyText}>{replyMessage.text}</p>
-          </div>
-          <button
-            className={styles.removeReply}
-            type={'button'}
-            onClick={() => setReplyMessage(null)}
-          />
-        </div>
+        <ReplyArea
+          replyMessage={replyMessage}
+          isMessageWithImage={!!image}
+          dropReplyImage={() => setReplyMessage(null)}
+        />
       )}
-      <div className={styles.messageArea}>
-        <button
-          type={'button'}
-          className={styles.emojiButton}
-          onClick={() => setIsEmojiWindowOpen(prevState => !prevState)}
-        />
-        <input
-          placeholder={'Введите сообщение'}
-          value={message}
-          onChange={event => setMessage(event.target.value)}
-        />
-        <button
-          type={'button'}
-          className={styles.sendButton}
-          onClick={handleSendMessage}
-          disabled={message === ''}
-        ></button>
-      </div>
-      <EmojiContainer
-        isOpen={isEmojiWindowOpen}
-        onPick={(emoji: string) => setMessage(prevState => prevState + emoji)}
-      />
+      {image && <ImageArea image={image} dropImage={() => setImage(null)} />}
+      <MessageArea setImage={setImage} handleSendMessage={handleSendMessage} />
     </div>
   );
 }

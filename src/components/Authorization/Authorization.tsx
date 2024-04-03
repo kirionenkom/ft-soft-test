@@ -1,16 +1,28 @@
 import styles from './authorization.module.css';
 import { MouseEventHandler, useState } from 'react';
-import { useAppDispatch } from '../../store/hooks';
-import { setUser } from '../../store/messengerSlice';
 import { useNavigate } from 'react-router-dom';
+import { nanoid } from '@reduxjs/toolkit';
+import { db } from '../../localStorage/db';
+import { setSession } from '../../localStorage/sessionStorage';
 
 export default function Authorization() {
   const [name, setName] = useState('');
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit: MouseEventHandler<HTMLButtonElement> = evt => {
-    dispatch(setUser(name));
+  const handleSubmit: MouseEventHandler<HTMLButtonElement> = async () => {
+    try {
+      const id = await db.users.where({ name: name }).toArray();
+
+      if (id.length === 0) {
+        const user = { name: name, id: nanoid(10) };
+        db.users.add(user, user.id);
+        setSession(user);
+      } else {
+        setSession(id[0]);
+      }
+    } catch (e) {
+      console.log(e);
+    }
     navigate('/');
   };
 

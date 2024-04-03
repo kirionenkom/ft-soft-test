@@ -5,5 +5,6 @@ export interface IMessage {
   sender: IUser;
   text: string;
   datetime: string;
-  reply?: IMessage;
+  reply?: IMessage | null;
+  image?: string |ArrayBuffer | null
 }

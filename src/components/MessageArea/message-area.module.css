@@ -1,0 +1,89 @@
+.messageArea {
+    display: grid;
+    grid-template-columns: 1fr 1fr 14fr 1fr;
+    flex-direction: row;
+    border-top: 4px solid #bacaff;
+    align-items: center;
+}
+
+.inputImage {
+    position: relative;
+    display: block;
+    height: 100%;
+}
+
+.inputImage:hover {
+    opacity: 0.8;
+}
+
+.inputImage input[type=file] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    display: block;
+    width: 0;
+    height: 0;
+}
+
+.inputButton {
+    display: inline-block;
+    position: relative;
+    margin-left: 5px;
+    width: 40px;
+    height: inherit;
+    background-image: url("./clip.png");
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    background-position: 5px 8px;
+    cursor: pointer;
+    border: none;
+    border-right: 4px solid #bacaff;
+    background-color: inherit;
+    transition: all ease-in-out 100ms;
+}
+
+.emojiButton {
+    margin-left: 5px;
+    width: 40px;
+    height: 100%;
+    background-image: url("./emoji.png");
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    background-position: 2px 9px;
+    cursor: pointer;
+    border: none;
+    border-right: 4px solid #bacaff;
+    background-color: inherit;
+    transition: all ease-in-out 100ms;
+}
+
+.emojiButton:hover {
+    opacity: 0.8;
+}
+
+.messageArea input {
+    font-size: 20px;
+    margin-left: 10px;
+    height: 100%;
+    border: none;
+    background-color: inherit;
+    outline: none;
+}
+
+.messageArea .sendButton{
+    margin-right: 5px;
+    width: 40px;
+    height: 100%;
+    background-image: url("./send.png");
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position: 4px 6px;
+    cursor: pointer;
+    border: none;
+    border-left: 4px solid #bacaff;
+    background-color: inherit;
+}
+
+.messageArea button:disabled{
+    opacity: 0.6;
+}

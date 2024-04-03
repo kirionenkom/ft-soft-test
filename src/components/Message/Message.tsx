@@ -24,9 +24,29 @@ export default function Message({
 }: MessageProps) {
   return (
     <div className={cn(styles.message, isMyMessage && styles.myMessage)}>
-      {!isMyMessage && <p className={styles.sender}>{message.sender}</p>}
+      {message.image && (
+        <img
+          src={message.image.toString()}
+          alt={'Изображение'}
+          className={styles.image}
+        />
+      )}
+      {!isMyMessage && <p className={styles.sender}>{message.sender.name}</p>}
       {message.reply && (
-        <p className={styles.reply}>{message.reply.text.slice(0, 100)}</p>
+        <div className={styles.replyContainer}>
+          {message.reply.image && (
+            <img
+              src={message.reply.image.toString()}
+              alt={'Изображение ответа'}
+            />
+          )}
+          <p className={styles.reply}>
+            {message.reply.text.length > 50
+              ? message.reply.text.slice(0, 50) + '...'
+              : message.reply.text}
+          </p>
+          )
+        </div>
       )}
       <p className={styles.text}>{message.text}</p>
       <button

@@ -1,0 +1,36 @@
+.replyArea {
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom: calc(100% / 12);
+    border-top: 4px solid #bacaff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.replyAuthor {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: bold;
+    margin: 0 0 0 10px;
+}
+
+.replyText {
+    font-size: 16px;
+    line-height: 18px;
+    margin: 0 0 0 10px;
+}
+
+.removeReply {
+    margin-left: 5px;
+    width: 40px;
+    height: 40px;
+    background-image: url("./cross.png");
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position: 0 5px;
+    cursor: pointer;
+    border: none;
+    background-color: inherit;
+}

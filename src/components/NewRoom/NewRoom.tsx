@@ -1,7 +1,8 @@
 import styles from './new-room.module.css';
-import { MouseEventHandler, useState } from 'react';
-import { useAppDispatch } from '../../store/hooks';
-import { createNewRoom } from '../../store/messengerSlice';
+import { useState } from 'react';
+import { db } from '../../localStorage/db';
+import { nanoid } from '@reduxjs/toolkit';
+import { IRoom } from '../../interfaces/IRoom';
 
 type NewRoomProps = {
   onClose: () => void;
@@ -9,12 +10,20 @@ type NewRoomProps = {
 
 export default function NewRoom({ onClose }: NewRoomProps) {
   const [name, setName] = useState('');
-  const dispatch = useAppDispatch();
 
-  const handleSubmit: MouseEventHandler<HTMLButtonElement> = evt => {
-    dispatch(createNewRoom(name));
-    onClose();
-  };
+  async function handleSubmit() {
+    try {
+      const room: IRoom = {
+        id: nanoid(10),
+        name,
+        messages: [],
+      };
+      await db.rooms.add(room, room.id);
+      onClose();
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <div className={styles.newRoomForm}>
@@ -26,7 +35,11 @@ export default function NewRoom({ onClose }: NewRoomProps) {
         value={name}
         onChange={event => setName(event.target.value)}
       />
-      <button className={styles.submit} type={'button'} onClick={handleSubmit}>
+      <button
+        className={styles.submit}
+        type={'button'}
+        onClick={() => handleSubmit()}
+      >
         Создать
       </button>
     </div>

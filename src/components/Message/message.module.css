@@ -2,7 +2,7 @@
     position: relative;
     align-self: flex-start;
     background-color: #b9daff;
-    padding: 5px 10px;
+    padding: 10px 10px;
     border-radius: 10px;
     margin-bottom: 5px;
     max-width: 70%;
@@ -13,6 +13,10 @@
     align-self: flex-end;
 }
 
+.image {
+    max-width: 100%;
+}
+
 .sender {
     font-size: 12px;
     line-height: 14px;
@@ -20,13 +24,27 @@
     margin: 0 0 3px;
 }
 
+.replyContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 0 5px;
+    padding: 4px 5px 4px 5px;
+    border-left: 3px solid #4e93fc;
+    background-color: #95c4ff;
+
+}
+
+.replyContainer img {
+    height: 40px;
+    margin: 0 3px 0 0;
+}
+
 .reply {
     font-size: 16px;
     line-height: 16px;
-    background-color: #95c4ff;
-    margin: 0 0 5px;
-    padding: 4px 0 4px 5px;
-    border-left: 3px solid #4e93fc;
+    overflow: hidden;
+    margin: 0;
 }
 
 .text {
@@ -41,7 +59,7 @@
     border: none;
     font-size: 10px;
     position: absolute;
-    bottom: 5%;
+    bottom: 5px;
     left: 5px;
     color: #2f2f2f;
 }
@@ -53,7 +71,7 @@
 .time {
     font-size: 10px;
     position: absolute;
-    bottom: 5%;
+    bottom: 5px;
     right: 5px;
     line-height: 14px;
 }

@@ -1,1 +1,4 @@
-export type IUser = string;
+export interface IUser {
+  id: string
+  name: string
+}
