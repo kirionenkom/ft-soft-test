@@ -45,7 +45,6 @@ export default function Message({
               ? message.reply.text.slice(0, 50) + '...'
               : message.reply.text}
           </p>
-          )
         </div>
       )}
       <p className={styles.text}>{message.text}</p>
