@@ -1,7 +1,6 @@
 import styles from './messenger.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Message from '../Message/Message';
-import { useInterval } from 'usehooks-ts';
 import { useState } from 'react';
 import { IMessage } from '../../interfaces/IMessage';
 import { getSession } from '../../localStorage/sessionStorage';
@@ -12,24 +11,17 @@ import ReplyArea from '../ReplyArea/ReplyArea';
 import ImageArea from '../ImageArea/ImageArea';
 import MessageArea from '../MessageArea/MessageArea';
 
-const MESSENGER_UPDATE_INTERVAL = 500;
-
 export default function Messenger() {
-  const [time, setTime] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
 
   const user = getSession();
   const room = useLiveQuery(async () => {
     return db.rooms.where({ id: id }).first();
-  }, [time]);
+  });
 
   const [image, setImage] = useState<IMessage['image']>();
   const [replyMessage, setReplyMessage] = useState<IMessage['reply']>();
-
-  useInterval(() => {
-    setTime(prevState => prevState + 1);
-  }, MESSENGER_UPDATE_INTERVAL);
 
   const handleSendMessage = async (text: IMessage['text']) => {
     if (!room || !user) {

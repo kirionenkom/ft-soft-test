@@ -1,21 +1,13 @@
 import styles from './rooms.module.css';
-import { useInterval } from 'usehooks-ts';
 import { useState } from 'react';
 import NewRoom from '../NewRoom/NewRoom';
 import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../localStorage/db';
 
-const ROOMS_LIST_UPDATE_INTERVAL = 2000;
-
 export default function RoomsList() {
-  const [time, setTime] = useState(0);
   const [isNewRoomModalOpen, setIsNewRoomModalOpen] = useState(false);
-  const rooms = useLiveQuery(() => db.rooms.toArray(), [time]);
-
-  useInterval(() => {
-    setTime(prevState => prevState++);
-  }, ROOMS_LIST_UPDATE_INTERVAL);
+  const rooms = useLiveQuery(() => db.rooms.toArray());
 
   if (!rooms) {
     return null;
