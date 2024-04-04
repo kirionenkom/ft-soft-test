@@ -6,10 +6,10 @@ import { IMessage } from '../../interfaces/IMessage';
 import { getSession } from '../../localStorage/sessionStorage';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../localStorage/db';
-import { nanoid } from '@reduxjs/toolkit';
 import ReplyArea from '../ReplyArea/ReplyArea';
 import ImageArea from '../ImageArea/ImageArea';
 import MessageArea from '../MessageArea/MessageArea';
+import { nanoid } from 'nanoid'
 
 export default function Messenger() {
   const { id } = useParams();

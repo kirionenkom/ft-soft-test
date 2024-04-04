@@ -1,8 +1,8 @@
 import styles from './new-room.module.css';
 import { useState } from 'react';
 import { db } from '../../localStorage/db';
-import { nanoid } from '@reduxjs/toolkit';
 import { IRoom } from '../../interfaces/IRoom';
+import { nanoid } from 'nanoid'
 
 type NewRoomProps = {
   onClose: () => void;

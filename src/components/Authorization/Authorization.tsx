@@ -1,9 +1,9 @@
 import styles from './authorization.module.css';
 import { MouseEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { nanoid } from '@reduxjs/toolkit';
 import { db } from '../../localStorage/db';
 import { setSession } from '../../localStorage/sessionStorage';
+import { nanoid } from 'nanoid'
 
 export default function Authorization() {
   const [name, setName] = useState('');
